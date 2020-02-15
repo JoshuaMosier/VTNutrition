@@ -30,7 +30,7 @@ def search(query):
     index=0
     nutritional_info = soupselect.select(soup, 'div.nutritional_info')
     nutritional_data = soupselect.select(soup, 'div.nutritional_facts')
-    print(requests.get('https://www.myfitnesspal.com/food/search?search=chick%20fil%20a%20nuggets').text)
+    # print(requests.get('https://www.myfitnesspal.com/food/search?search=chick%20fil%20a%20nuggets').text)
     for nutrition in nutritional_info:
         try:
             product = products[index]
