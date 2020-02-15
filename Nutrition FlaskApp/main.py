@@ -4,6 +4,7 @@ import sys
 from wtforms import Form, TextField, SubmitField
 import json
 import myfitnesspal
+import get_daily_menu
 
 app = Flask(__name__)
 
@@ -134,5 +135,8 @@ def index():
 		protein_val=protein_val, fat_val=fat_val, sugar_val=sugar_val, fiber_val=fiber_val, cholesterol_val=cholesterol_val, iron_val=iron_val,calcium_val=calcium_val,vita_val=vita_val,vitc_val=vitc_val,vegetarian=vegetarian,vegan=vegan,
 		starting_foods=starting_foods,removed_foods=removed_foods)
 
+def cron_get_menu(request):
+	get_daily_menu.get_menu_json()
+	
 if __name__ == '__main__':
 		app.run(debug=True)
