@@ -136,7 +136,8 @@ def index():
 		starting_foods=starting_foods,removed_foods=removed_foods)
 
 def cron_get_menu(request):
-	get_daily_menu.get_menu_json()
-	
+	print('hello world')
+	# get_daily_menu.get_menu_json()
+
 if __name__ == '__main__':
 		app.run(debug=True)
