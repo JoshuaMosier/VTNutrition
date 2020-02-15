@@ -1,0 +1,212 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="frame">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(function() {
+    $.ajax({
+      url: '{{ url_for("autocomplete") }}'
+      }).done(function (data) {
+        $('#autocomplete').autocomplete({
+          source: data.json_list,
+          minLength: 1,
+          select: function( event, ui ) {
+	        $( "#selectedfood").append('<li class="food_list"><input name="foods" value="' + "1.0 servings of " +ui.item.label + '"style="display:none;">' + "1.0 servings of " +ui.item.label + '</input><a href="#" onclick="f1(this)"> <i class="fa fa-minus-circle" aria-hidden="true"></i><a></li>');
+	        return false;
+	      }
+        });
+      });
+    });
+    $(function() {
+    $.ajax({
+    	type: "POST",
+      url: '{{ url_for("autocomplete_mfp") }}',
+      dataType : 'text',
+   		data : $('#autocomplete_mfp'),
+      success: function(result) {
+      	test = JSON.parse(result)
+      	console.log(test)
+      	 for(var i in test){
+	      	$( "#mfpfood").append('<li class="food_list"><input name="mfpfoods" value="' + "1.i servings of " + test[i]['name'] + " - " + test[i]['brand'] + '"style="display:none;">' + "1 servings of " + test[i]['name'] + " - " + test[i]['brand'] + '</input><a href="#" onclick="add_mfp(this)"> <i class="fa fa-plus-circle" aria-hidden="true"></i><a></li>');
+      	}
+    },
+	    error: function(result) {
+	      alert("jQuery Error:" + result.statusText);
+	    }
+	    });
+   	});
+	</script>
+
+	<div>
+		<form method="post">
+		 	<!-- Allergy Input -->
+		 		 <!-- ["Milk","Eggs","Fish","CrustaceanShellfish","TreeNuts","Peanuts","Wheat","Soybeans","Gluten"] -->
+			<div class="allergies_input">
+				<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		    		<div class="input-group-text">
+		      		<label class="switch"><input type="checkbox" value="Milk" name="allergies" {% if "Milk" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Milk</span><span class="off">Milk</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Eggs" name="allergies" {% if "Eggs" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Eggs</span><span class="off">Eggs</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Fish" name="allergies" {% if "Shellfish" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Fish</span><span class="off">Fish</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Shellfish" name="allergies" {% if "Shellfish" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Shellfish</span><span class="off">Shellfish</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="TreeNuts" name="allergies" {% if "TreeNuts" in a_list%}checked{% endif %}><div class="slider round"><span class="on">TreeNuts</span><span class="off">TreeNuts</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Peanuts" name="allergies" {% if "Peanuts" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Peanuts</span><span class="off">Peanuts</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Wheat" name="allergies" {% if "Wheat" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Wheat</span><span class="off">Wheat</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="Soybeans" name="allergies" {% if "Soybeans" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Soybeans</span><span class="off">Soybeans</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="*" name="vegetarian" {% if vegetarian == "*" %}checked{% endif %}><div class="slider round"><span class="on">Vegetarian</span><span class="off">Vegetarian</span></div></label>
+		      		<label class="switch"><input type="checkbox" value="**" name="vegan" {% if vegan == "**" %}checked{% endif %}><div class="slider round"><span class="on">Vegan</span><span class="off">Vegan</span></div></label>
+	    				</div>
+		  		</div>
+				</div>
+			</div>
+
+			<!-- Location Input -->
+			<!-- "Burger37" "D2" "Deet's Place" "DXpress" "Owen's/Hokie Grill" "Turners" "Vet Med Cafe" "West End Market"-->
+			<div class="location_input">
+	  		<div class="input-group-prepend">
+	    		<div class="input-group-text">
+    				<label class="switch"><input type="checkbox" value="Burger37" name="location" {% if "Burger37" in l_list%}checked{% endif %}><div class="slider round"><span class="on">Burger37</span><span class="off">Burger37</span></div></label>
+    				<label class="switch"><input type="checkbox" value="D2" name="location" {% if "D2" in l_list%}checked{% endif %}><div class="slider round"><span class="on">D2</span><span class="off">D2</span></div></label>
+    				<label class="switch"><input type="checkbox" value="Deet's Place" name="location" {% if "Deet's Place" in l_list%}checked{% endif %}><div class="slider round"><span class="on">Deet's</span><span class="off">Deet's</span></div></label>
+    				<label class="switch"><input type="checkbox" value="Owen's/Hokie Grill" name="location" {% if "Owen's/Hokie Grill" in l_list%}checked{% endif %}><div class="slider round"><span class="on">Owen's</span><span class="off">Owen's</span></div></label>
+    				<label class="switch"><input type="checkbox" value="Turners" name="location" {% if "Turners" in l_list%}checked{% endif %}><div class="slider round"><span class="on">Turners</span><span class="off">Turners</span></div></label>
+    				<label class="switch"><input type="checkbox" value="Vet Med Cafe" name="location" {% if "Vet Med Cafe" in l_list%}checked{% endif %}><div class="slider round"><span class="on">Med Cafe</span><span class="off">Med Cafe</span></div></label>
+    				<label class="switch"><input type="checkbox" value="West End Market" name="location" {% if "West End Market" in l_list%}checked{% endif %}><div class="slider round"><span class="on">West End</span><span class="off">West End</span></div></label>
+    				<label class="switch"><input type="checkbox" value="DXpress" name="location" {% if "DXpress" in l_list%}checked{% endif %}><div class="slider round"><span class="on">DXpress</span><span class="off">DXpress</span></div></label>
+	    		</div>
+	  		</div>
+			</div>
+
+			<!-- Macro input  -->
+			<div class="select_div">
+				<table class="nutrient_input">
+					<tr>
+						<th><h4 class="select_header">Macro Select</h4></th>
+						<th><h4 class="select_header">Nutrient Select</h4></th>
+						<th><h4 class="select_header">Vitamin Select</h4></th>
+					</tr>
+					<tr>
+						<td>
+							<div>
+								<label for="carbInputId" class="macro_label">Carbohydrates(g): </label>
+							  <input type="range" name="carbInputName" id="carbInputId" value="{{carb_val}}" min="0" max="300" oninput="carbOutputId.value = carbInputId.value" step="5">
+								<output name="carbOutputName" id="carbOutputId">{{carb_val}}</output>
+							</div>
+							<div>
+								<label for="proteinInputId" class="macro_label">Protein(g): </label>
+						  	<input type="range" name="proteinInputName" id="proteinInputId" value="{{protein_val}}" min="0" max="200" oninput="proteinOutputId.value = proteinInputId.value" step="5">
+								<output name="proteinOutputName" id="proteinOutputId">{{protein_val}}</output>
+							</div>
+							<div>
+								<label for="total_fatInputId" class="macro_label">Total Fat(g): </label>
+						  	<input type="range" name="total_fatInputName" id="total_fatInputId" value="{{fat_val}}" min="0" max="100" oninput="total_fatOutputId.value = total_fatInputId.value" step="5">
+								<output name="total_fatOutputName" id="total_fatOutputId">{{fat_val}}</output>
+							</div>
+						</td>
+						<td>
+							<div>
+								<label for="sugarInputId" class="nutrient_label">Sugars(g): </label>
+							  <input type="range" name="sugarInputName" id="sugarInputId" value="{{sugar_val}}" min="0" max="100" oninput="sugarOutputId.value = sugarInputId.value" step="5">
+								<output name="sugarOutputName" id="sugarOutputId">{{sugar_val}}</output>
+							</div>
+							<div>
+								<label for="fiberInputId" class="nutrient_label">Dietary Fiber(g): </label>
+						  	<input type="range" name="fiberInputName" id="fiberInputId" value="{{fiber_val}}" min="0" max="100" oninput="fiberOutputId.value = fiberInputId.value" step="5">
+								<output name="fiberOutputName" id="fiberOutputId">{{fiber_val}}</output>
+							</div>
+							<div>
+								<label for="cholesterolInputId" class="nutrient_label">Cholesterol(mg): </label>
+						  	<input type="range" name="cholesterolInputName" id="cholesterolInputId" value="{{cholesterol_val}}" min="0" max="500" oninput="cholesterolOutputId.value = cholesterolInputId.value" step="5">
+								<output name="cholesterolOutputName" id="cholesterolOutputId">{{cholesterol_val}}</output>
+							</div>
+						</td>
+						<td>
+							<div>
+								<label for="ironInputId" class="vitamin_label">Iron(%DV)): </label>
+							  <input type="range" name="ironInputName" id="ironInputId" value="{{iron_val}}" min="0" max="300" oninput="ironOutputId.value = ironInputId.value" step="5">
+								<output name="ironOutputName" id="ironOutputId">{{iron_val}}</output>
+							</div>
+							<div>
+								<label for="calciumInputId" class="vitamin_label">Calcium(%DV): </label>
+						  	<input type="range" name="calciumInputName" id="calciumInputId" value="{{calcium_val}}" min="0" max="300" oninput="calciumOutputId.value = calciumInputId.value" step="5">
+								<output name="calciumOutputName" id="calciumOutputId">{{calcium_val}}</output>
+							</div>
+							<div>
+								<label for="vitaInputId" class="vitamin_label">Vitamin A(%DV): </label>
+						  	<input type="range" name="vitaInputName" id="vitaInputId" value="{{vita_val}}" min="0" max="300" oninput="vitaOutputId.value = vitaInputId.value" step="5">
+								<output name="vitaOutputName" id="vitaOutputId">{{vita_val}}</output>
+							</div>
+							<div>
+								<label for="vitcInputId" class="vitamin_label">Vitamin C(%DV): </label>
+						  	<input type="range" name="vitcInputName" id="vitcInputId" value="{{vitc_val}}" min="0" max="300" oninput="vitcOutputId.value = vitcInputId.value" step="5">
+								<output name="vitcOutputName" id="vitcOutputId">{{vitc_val}}</output>
+							</div>
+						</td>
+					</tr>
+				</table>
+				{{ form_optimize.optimize.label}}: {{ form_optimize.optimize }}
+			</div>
+
+		<div class="output">
+			<div>
+				<h3>This diet minimizes calories and optimizes for {{max_carbs}}g carbs, {{max_protein}}g protein, and {{max_fat}}g fat.</h3>
+				<h5>This diet does not contain: {{a_list|join(", ")}}</h5>
+				<h5>Limited to these locations: {{l_list|join(", ")}}</h5>
+				{{ form.autocomp.label }}: {{ form.autocomp }}
+				<table class="output_table">
+					<tr>
+						<th class="output_header">MyFitnessPal Foods</th>
+						<th class="output_header">Selected Foods <a href="#" onclick="remove_all_selected()"> (Remove All)</a></th>
+						<th class="output_header">Removed Foods <a href="#" onclick="remove_all()"> (Remove All)</a></th>
+						<th class="output_header">Nutrient Information</th>
+					</tr>
+					<tr>
+						<td class="serving_list">
+							<ul id="mfpfood">
+							</ul>
+						</td>
+						<td class="serving_list">
+							<ul id="selectedfood">
+								{% for starting_food in starting_foods %}
+									<li class="food_list output"><input name="foods" value="{{starting_food}}" style="display:none;">{{starting_food}}</input><a href="#" onclick="f1(this)"> <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
+								{% endfor %}
+								{% if status %}
+									{% for food in foods %}
+										<li class="food_list output"><input name="foods" value="{{food}}" style="display:none;">{{food}}</input><a href="#" onclick="f1(this)"> <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
+									{% endfor %}
+								{% else %}
+									<h3 class="text-danger">This diet is not possible with these selections</h3>
+								{% endif %}
+							</ul>
+						</td>
+						<td class="removed_list">
+							<ul id="removedfood">
+								{% for removed_food in removed_foods %}
+									<li class="food_list output"><input name="removed_foods" value="{{removed_food}}" style="display:none;">{{removed_food}}</input><a href="#" onclick="parentNode.parentNode.removeChild(parentNode)"> <i class="fa fa-minus-circle" aria-hidden="true"></i></a></li>
+								{% endfor %}
+							</ul>
+						</td>
+						<td class="nutrition_list">
+							<ul>
+								{% for info in nutrient_info %}
+									<li>{{info}}</li>
+								{% endfor %}
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		</form>
+		<form method="post">
+			<button>Get External Content</button>
+			{{ form_mfp.autocomp_mfp.label }}: {{ form_mfp.autocomp_mfp }}
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+
