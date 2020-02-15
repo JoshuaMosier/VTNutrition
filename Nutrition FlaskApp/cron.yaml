@@ -1,0 +1,4 @@
+cron:
+- description: "get daily menu"
+  url: /cron/do_the_thing
+  schedule: every 5 minutes
