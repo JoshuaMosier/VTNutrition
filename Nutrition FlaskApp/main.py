@@ -135,9 +135,5 @@ def index():
 		protein_val=protein_val, fat_val=fat_val, sugar_val=sugar_val, fiber_val=fiber_val, cholesterol_val=cholesterol_val, iron_val=iron_val,calcium_val=calcium_val,vita_val=vita_val,vitc_val=vitc_val,vegetarian=vegetarian,vegan=vegan,
 		starting_foods=starting_foods,removed_foods=removed_foods)
 
-@app.route("/cron/do_the_thing")
-def do_the_thing(request):
-    get_daily_menu.get_menu_json()
-
 if __name__ == '__main__':
 		app.run(debug=True)
