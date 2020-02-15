@@ -4,6 +4,7 @@ import sys
 from wtforms import Form, TextField, SubmitField
 import json
 import myfitnesspal
+import get_daily_menu
 
 app = Flask(__name__)
 
@@ -136,8 +137,8 @@ def index():
 
 @app.route("/cron/do_the_thing", methods=['POST'])
 def do_the_thing():
-    logging.info("Did the thing")
+    get_daily_menu.get_menu_json()
     return "OK", 200
-	
+
 if __name__ == '__main__':
 		app.run(debug=True)
