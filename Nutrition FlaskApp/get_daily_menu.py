@@ -77,3 +77,5 @@ def get_menu_json():
     
     with open('Menu_Json/' + str(today) + '-test.json', 'w') as fp:
         json.dump(large_food_dict, fp)
+
+get_menu_json()
