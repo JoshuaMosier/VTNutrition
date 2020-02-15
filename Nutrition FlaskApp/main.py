@@ -137,7 +137,7 @@ def index():
 
 @app.route('/daily')
 def daily():
-	print('this is a test of the daily cron job')
+	return 'this is a test of the daily cron job'
 
 @app.errorhandler(404)
 def page_not_found(e):
