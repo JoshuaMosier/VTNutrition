@@ -1,5 +1,5 @@
 runtime: python37
 
 handlers:
-- url: auto
+- url: .*
   script: get_daily_menu.py
