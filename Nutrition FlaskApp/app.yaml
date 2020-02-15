@@ -1,5 +1,6 @@
 runtime: python37
 
-handlers:
-- url: .*
-  script: get_daily_menu.py
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
