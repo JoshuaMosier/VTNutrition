@@ -59,7 +59,7 @@ def parse_html(html):
 		else:
 			return None
 
-def get_menu_json(request):
+def get_menu_json():
     large_food_dict = {}
     locs = {"Burger37":'18',"D2":'15',"Deet's Place":'07',"DXpress":'13',"Owen's/Hokie Grill":'09',"Turners":'14',"Vet Med Cafe":'19',"West End Market":'16'}
     today = date.today()
