@@ -135,9 +135,14 @@ def index():
 		protein_val=protein_val, fat_val=fat_val, sugar_val=sugar_val, fiber_val=fiber_val, cholesterol_val=cholesterol_val, iron_val=iron_val,calcium_val=calcium_val,vita_val=vita_val,vitc_val=vitc_val,vegetarian=vegetarian,vegan=vegan,
 		starting_foods=starting_foods,removed_foods=removed_foods)
 
-def cron_get_menu(request):
-	print('hello world')
-	# get_daily_menu.get_menu_json()
+@app.route('/daily')
+def daily():
+	get_daily_menu.get_menu_json()
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Return a custom 404 error."""
+    return 'Sorry, nothing at this URL.', 404
+	
 if __name__ == '__main__':
 		app.run(debug=True)

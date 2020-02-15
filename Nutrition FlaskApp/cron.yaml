@@ -1,4 +1,4 @@
 cron:
 - description: scrape menus
-  url: /get_daily_menu.py
-  schedule: every 10 minutes
+  url: /daily
+  schedule: every day 10:00
