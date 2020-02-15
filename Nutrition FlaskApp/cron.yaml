@@ -1,4 +1,4 @@
 cron:
-- description: scrape menus
-  url: /daily
-  schedule: every day 10:00
+- description: "TEST_TEST_TEST"
+- url: /cronBatchClean
+- schedule: every 2 minutes

@@ -135,9 +135,12 @@ def index():
 		protein_val=protein_val, fat_val=fat_val, sugar_val=sugar_val, fiber_val=fiber_val, cholesterol_val=cholesterol_val, iron_val=iron_val,calcium_val=calcium_val,vita_val=vita_val,vitc_val=vitc_val,vegetarian=vegetarian,vegan=vegan,
 		starting_foods=starting_foods,removed_foods=removed_foods)
 
-@app.route('/daily')
-def daily():
-	return 'this is a test of the daily cron job'
+@app.route('/cronBatchClean', methods=['GET'])
+def cronBatchClean():
+
+   print("CRON_JOB_PRINT")
+
+   return "CRON_CHECK"
 
 @app.errorhandler(404)
 def page_not_found(e):
