@@ -25,6 +25,9 @@ def parse_html(html):
 			macros = {}
 			for info in daily_info:
 				macros[" ".join(re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[:-1])] = re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[-1]
+			for macro in macros:
+				tmp = re.sub('[a-z]', '', macros[macro])
+				macros[macro] = tmp
 			dict_food["macros"] = macros
 			list_allergens = re.findall("(ALLERGENS:</strong>)(.*)",str(soup))[0][1].replace(" ","").replace("\r","").split(",")
 			if len(list_allergens) == 0:

@@ -4,7 +4,6 @@ import sys
 from wtforms import Form, TextField, SubmitField
 import json
 import myfitnesspal
-import get_daily_menu
 
 app = Flask(__name__)
 
@@ -134,18 +133,6 @@ def index():
 	return render_template('index.html',form=form,form_mfp=form_mfp,form_optimize=form_optimize,foods=foods,nutrient_info=info,servings=servings,max_carbs=max_carbs,max_fat=max_fat,max_protein=max_protein,a_list=a_list,l_list=l_list,status=status,carb_val=carb_val, 
 		protein_val=protein_val, fat_val=fat_val, sugar_val=sugar_val, fiber_val=fiber_val, cholesterol_val=cholesterol_val, iron_val=iron_val,calcium_val=calcium_val,vita_val=vita_val,vitc_val=vitc_val,vegetarian=vegetarian,vegan=vegan,
 		starting_foods=starting_foods,removed_foods=removed_foods)
-
-@app.route('/cronBatchClean', methods=['GET'])
-def cronBatchClean():
-
-   print("CRON_JOB_PRINT")
-
-   return "CRON_CHECK"
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """Return a custom 404 error."""
-    return 'Sorry, nothing at this URL.', 404
 
 if __name__ == '__main__':
 		app.run(debug=True)

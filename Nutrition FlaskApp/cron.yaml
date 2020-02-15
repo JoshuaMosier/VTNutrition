@@ -1,4 +1,0 @@
-cron:
-- description: scrape menus
-  url: /cronBatchClean
-  schedule: every day 10:00
