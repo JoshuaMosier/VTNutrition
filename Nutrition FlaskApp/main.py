@@ -4,7 +4,6 @@ import sys
 from wtforms import Form, TextField, SubmitField
 import json
 import myfitnesspal
-import get_daily_menu
 
 app = Flask(__name__)
 
