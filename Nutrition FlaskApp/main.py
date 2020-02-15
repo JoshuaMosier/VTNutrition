@@ -137,8 +137,7 @@ def index():
 
 @app.route("/cron/do_the_thing", methods=['GET'])
 def do_the_thing():
-    get_daily_menu.get_menu_json()
-    return "OK", 200
+    print('Hello World')
 
 if __name__ == '__main__':
 		app.run(debug=True)
