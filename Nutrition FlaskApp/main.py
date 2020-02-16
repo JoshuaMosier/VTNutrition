@@ -86,7 +86,7 @@ def index():
 			MF = 0
 		else:
 			MF = 1/num_meals
-		# print('meal factor: ' + str(MF))
+		print('meal factor: ' + str(MF))
 		activity = 0
 		age = request.form.get('ageInputName')
 		height = request.form.get('heightInputName')
@@ -96,29 +96,29 @@ def index():
 		# print(age,height,weight,gender)
 		male_activity = [1,1,1.12,1.27,1.54]
 		female_activity = [1,1,1.14,1.27,1.45]
-		if gender == 'male':
-			calories = (66 + (13.7*weight) + (5 * height) - (6.8*age))*male_activity[activity]
-			# print(calories)
-			brek_max_carbs = int(.55*calories*MF)
-			brek_max_fat = int(.25*calories*MF)
-			brek_max_protein = int(.20*calories*MF)
-			lunch_max_carbs = int(.55*calories*MF)
-			lunch_max_fat = int(.25*calories*MF)
-			lunch_max_protein = int(.20*calories*MF)
-			dinner_max_carbs = int(.55*calories*MF)
-			dinner_max_fat = int(.25*calories*MF)
-			dinner_max_protein = int(.20*calories*MF)
-		elif gender == 'female':
-			calories = (655 + (9.6*weight) + (1.8 * height) - (4.7*age))*female_activity[activity]
-			brek_max_carbs = int(.55*calories*MF)
-			brek_max_fat = int(.25*calories*MF)
-			brek_max_protein = int(.20*calories*MF)
-			lunch_max_carbs = int(.55*calories*MF)
-			lunch_max_fat = int(.25*calories*MF)
-			lunch_max_protein = int(.20*calories*MF)
-			dinner_max_carbs = int(.55*calories*MF)
-			dinner_max_fat = int(.25*calories*MF)
-			dinner_max_protein = int(.20*calories*MF)
+		if gender == 'Male':
+			calories = (66 + (13.7*float(weight)) + (5 * float(height)) - (6.8*float(age)))*male_activity[int(activity)]
+			print(calories)
+			brek_max_carbs = int(.55*calories*MF/4)
+			brek_max_fat = int(.25*calories*MF/9)
+			brek_max_protein = int(.20*calories*MF/4)
+			lunch_max_carbs = int(.55*calories*MF/4)
+			lunch_max_fat = int(.25*calories*MF/9)
+			lunch_max_protein = int(.20*calories*MF/4)
+			dinner_max_carbs = int(.55*calories*MF/9)
+			dinner_max_fat = int(.25*calories*MF/4)
+			dinner_max_protein = int(.20*calories*MF/9)
+		elif gender == 'Female':
+			calories = (655 + (9.6*float(weight)) + (1.8 * float(height)) - (4.7*float(age)))*female_activity[int(activity)]
+			brek_max_carbs = int(.55*calories*MF/4)
+			brek_max_fat = int(.25*calories*MF/9)
+			brek_max_protein = int(.20*calories*MF/4)
+			lunch_max_carbs = int(.55*calories*MF/4)
+			lunch_max_fat = int(.25*calories*MF/9)
+			lunch_max_protein = int(.20*calories*MF/4)
+			dinner_max_carbs = int(.55*calories*MF/9)
+			dinner_max_fat = int(.25*calories*MF/4)
+			dinner_max_protein = int(.20*calories*MF/9)
 		else:
 			brek_max_carbs = int(200*MF)
 			brek_max_fat = int(50*MF)
@@ -129,6 +129,7 @@ def index():
 			dinner_max_carbs = int(200*MF)
 			dinner_max_fat = int(50*MF)
 			dinner_max_protein = int(100*MF)
+		print(str(brek_max_fat + lunch_max_fat + dinner_max_fat))
 		brek_max_sugar = int(request.form.get('sugarInputName'))*MF
 		brek_max_fiber = int(request.form.get('fiberInputName'))*MF
 		brek_max_cholesterol = int(request.form.get('cholesterolInputName'))*MF
@@ -157,7 +158,6 @@ def index():
 		if vegan != "**":
 			vegan = ""
 		brek_foods = lunch_foods = dinner_foods = []
-		brek_info = lunch_info = dinner_info = []
 		brek_servings = lunch_servings = dinner_servings = 0
 		brek_status = lunch_status = dinner_status = True
 		brek_starting_foods = lunch_starting_foods = dinner_starting_foods = []
@@ -188,11 +188,11 @@ def index():
 				if isinstance(brek_removed_foods[0], list):
 					brek_removed_foods = [brek_removed_foods]
 			brek_foods,brek_info,brek_servings = pulp_optimize.get_num_servings(a_list,breakfast,int(brek_max_carbs),int(brek_max_fat),int(brek_max_protein),int(brek_max_sugar),int(brek_max_fiber),int(brek_max_cholesterol),int(brek_max_iron),int(brek_max_calcium),int(brek_max_vita),int(brek_max_vitc),vegetarian,vegan,brek_starting_foods,brek_removed_foods)
+			# print(brek_info)
 			brek_status = True
 			for item in brek_servings:
 				if item < 0 or item%1 != 0:
 					brek_foods = []
-					brek_info = []
 					brek_status = False
 		if lunch != 'None':
 			carb_val += lunch_max_carbs 
@@ -221,7 +221,6 @@ def index():
 			for item in lunch_servings:
 				if item < 0 or item%1 != 0:
 					lunch_foods = []
-					lunch_info = []
 					lunch_status = False
 		if dinner != 'None':
 			carb_val += dinner_max_carbs 
@@ -250,7 +249,6 @@ def index():
 			for item in dinner_servings:
 				if item < 0 or item%1 != 0:
 					dinner_foods = []
-					dinner_info = []
 					dinner_status = False
 		info = [0] * 14
 		nutrient_headers = ['Calories: ', 'Total Fat: ', 'Protein: ', 'Carbohydrates: ', 'Saturated Fat: ', 'Trans Fat: ', 'Cholesterol: ', 'Fiber: ', 'Sugars: ', 'Calcium: ', 'Iron: ', 'Vitamin A: ', 'Vitamin C: ', 'Sodium: ']
