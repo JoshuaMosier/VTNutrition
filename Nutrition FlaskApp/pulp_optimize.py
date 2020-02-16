@@ -1,7 +1,7 @@
 import pulp
 import json
 import re
-def get_num_servings(a_list,l_list,max_carbs,max_fat,max_protein,max_sugar,max_fiber,max_cholesterol,max_iron,max_calcium,max_vita,max_vitc,vegetarian,vegan,starting_foods,removed_foods):
+def get_num_servings(a_list,meal,max_carbs,max_fat,max_protein,max_sugar,max_fiber,max_cholesterol,max_iron,max_calcium,max_vita,max_vitc,vegetarian,vegan,starting_foods,removed_foods):
 	with open('nutrition_allergen+vitamins.json') as f:
 	  locations = json.load(f)
 
@@ -46,8 +46,8 @@ def get_num_servings(a_list,l_list,max_carbs,max_fat,max_protein,max_sugar,max_f
 	# ,"Turners":'14',"Vet Med Cafe":'19',"West End Market":'16'}
 	for location in locations:
 		for foods in locations[location]:
-			if float(locations[location][foods]['calories']) > 50 and location in l_list and a_list not in locations[location][foods]['allergens'] and vegetarian in foods and vegan in foods and foods not in starting and foods not in removed:
-				names.append(foods + " - " + location)
+			if float(locations[location][foods]['calories']) > 50 and location in meal and a_list not in locations[location][foods]['allergens'] and vegetarian in foods and vegan in foods and foods not in starting and foods not in removed:
+				names.append(foods)
 				f = locations[location][foods]
 				cals.append(float(f['calories']))
 				fat.append(float(f['macros']['Total Fat']))
@@ -106,7 +106,7 @@ def get_num_servings(a_list,l_list,max_carbs,max_fat,max_protein,max_sugar,max_f
 	servings = []
 	for food in names:
 		if x[food].value() != 0:
-			selected_foods.append("%s servings of %s"%(x[food].value(),food))
+			selected_foods.append("%s serv. %s"%(x[food].value(),food))
 			servings.append(x[food].value())
 	cal=init_cals
 	f=init_fat

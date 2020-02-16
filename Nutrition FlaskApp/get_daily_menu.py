@@ -24,7 +24,8 @@ def parse_html(html):
 			daily_info = soup.find_all("div", {"class": "daily_value"})
 			macros = {}
 			for info in daily_info:
-				macros[" ".join(re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[:-1])] = re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[-1]
+				macro_key = re.sub('-',''," ".join(re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[:-1])).strip()
+				macros[macro_key] = re.sub('-','0',re.findall("([\\w.-]+)",info.find("div").find_all("div")[0].getText())[-1])
 			for macro in macros:
 				tmp = re.sub('[a-z]', '', macros[macro])
 				macros[macro] = tmp
@@ -64,7 +65,7 @@ def parse_html(html):
 
 def get_menu_json():
     large_food_dict = {}
-    locs = {"Burger37":'18',"D2":'15',"Deet's Place":'07',"DXpress":'13',"Owen's/Hokie Grill":'09',"Turners":'14',"Vet Med Cafe":'19',"West End Market":'16'}
+    locs = {"Burger37":'18'}
     today = date.today()
     info_date = [str(today.month),str(today.day),str(today.year)]
     for location in locs:
@@ -78,7 +79,7 @@ def get_menu_json():
             if food != None:
                 large_food_dict[location][food[1]] = food[0]
     
-    with open('Menu_Json/' + str(today) + '-test.json', 'w') as fp:
+    with open(str(today) + '-test.json', 'w') as fp:
         json.dump(large_food_dict, fp)
 
 get_menu_json()

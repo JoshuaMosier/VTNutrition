@@ -1,0 +1,343 @@
+{% extends 'layout.html' %}
+{% block body %}
+<link rel="stylesheet" href="{{url_for('static',filename='test.css')}}">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Nutricient.Tech</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sub_info">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+      </ol>
+      <form method="post">
+      <div class="carousel-inner" role="listbox">
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" style="background-image: url('https://wallpaperaccess.com/full/1189604.png')">
+          <div class="carousel-caption d-none d-md-block">
+            <img src="static/{{'frontpage_logo.png'}}" style="width:750px;height:104px;margin-bottom:2%;"/>
+            <img src="static/{{'sub_title.png'}}" style="width:663px;height:56px;margin-bottom:25%;margin-left:35%;"/>
+            <h2 class="display-4">Explore An Optimized Dining Experience</h2>
+            <p class="lead">See what Nutricient has to offer.</p>
+          </div>
+        </div>
+        <!-- Slide Two - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('https://vtnews.vt.edu/content/dam/vtnews_vt_edu/articles/2014/08/images/080514-dsa-lapatisserie.jpg.transform/xl-medium/image.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="display-4">Eat What You Want, Where You Want</h2>
+            <p class="lead">Simply select your dietary restrictions and dining halls and Nutricient will take care of the rest.</p>
+          </div>
+        </div>
+        <!-- Enter Your Height, Weight, and Gender or Macronutrients-->
+        <div class="carousel-item" style="background-color: #A8E6CE;">
+            <div class="carousel-caption d-none d-md-block">
+              <div style="padding-bottom:10%;padding-right:25%;padding-left:25%;">
+                <div class="col-xs-4">
+                    <label for="input_age" value="{{age}}">Enter Your Age</label>
+                    <input class="form-control input-lg" name="ageInputName" id="input_age" type="text" style="text-align:center;">
+                </div>
+                <div class="col-xs-4">
+                    <label for="input_height" value="{{height}}">Enter Your Height In Inches</label>
+                    <input class="form-control input-lg" name="heightInputName" id="input_height" type="text" style="text-align:center;">
+                </div>
+                <div class="col-xs-4">
+                    <label for="input_weight" value="{{weight}}">Enter Your Weight In Pounds</label>
+                    <input class="form-control input-lg" name="weightInputName" id="input_weight" type="text" style="text-align:center;">
+                </div>
+                <div>
+                    <label for="select_gender">Select Gender (Optional)</label>
+                    <select class="form-control form-control-lg" name="genderInputName" id="select_gender" value="{{gender}}">
+                        <option value="None">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="select_gender">Physical Activity Level</label>
+                    <select class="form-control form-control-lg" name="activityInputName" id="select_activity" value="{{activity}}">
+                        <option value="0">Select Activity Level</option>
+                        <option value="1">Sedentary</option>
+                        <option value="2">Low Activity</option>
+                        <option value="3">Active</option>
+                        <option value="4">Very Active</option>
+                    </select>
+                </div>
+            </div>
+
+
+              <h2 class="display-4">Enter Your Information and Try It Now.</h2>
+            </div>
+          </div>
+          <!-- Select Your Meals and Dining Locations -->
+        <div class="carousel-item" style="background-color: #DCEDC2;">
+            <div class="carousel-caption d-none d-md-block">
+              <div style="padding-bottom:20%;padding-left:25%;padding-right:25%;">
+                <div id="breakfast" style="padding-bottom:20px;">
+                    <select class="form-control form-control-lg" name="breakfastInputName" id="select_breakfast">
+                        <option value='None'>Breakfast Location</option>
+                        <option value='Burger37'>Burger 37</option>
+                        <option value='D2'>D2</option>
+                        <option value="Deet's Place">Deet's Place</option>
+                        <option value='DXpress'>DXpress</option>
+                        <option value="Owen's/Hokie Grill">Owens/Hokie Grill</option>
+                        <option value='Turners'>Turners</option>
+                        <option value='Vet Med Cafe'>Vet Med Cafe</option>
+                        <option value='West End Market'>West End Market</option>
+                    </select>
+                </div>
+                <div id="lunch" style="padding-bottom:20px;">
+                    <select class="form-control form-control-lg" name="lunchInputName" id="select_lunch">
+                        <option value='None'>Lunch Location</option>
+                        <option value='Burger37'>Burger 37</option>
+                        <option value='D2'>D2</option>
+                        <option value="Deet's Place">Deet's Place</option>
+                        <option value='DXpress'>DXpress</option>
+                        <option value="Owen's/Hokie Grill">Owens/Hokie Grill</option>
+                        <option value='Turners'>Turners</option>
+                        <option value='Vet Med Cafe'>Vet Med Cafe</option>
+                        <option value='West End Market'>West End Market</option>
+                    </select>
+                </div>
+                <div id="dinner" style="padding-bottom:20px;">
+                    <select class="form-control form-control-lg" name="dinnerInputName" id="select_dinner">
+                        <option value='None'>Dinner Location</option>
+                        <option value='Burger37'>Burger 37</option>
+                        <option value='D2'>D2</option>
+                        <option value="Deet's Place">Deet's Place</option>
+                        <option value='DXpress'>DXpress</option>
+                        <option value="Owen's/Hokie Grill">Owens/Hokie Grill</option>
+                        <option value='Turners'>Turners</option>
+                        <option value='Vet Med Cafe'>Vet Med Cafe</option>
+                        <option value='West End Market'>West End Market</option>
+                    </select>
+                </div>
+            </div>
+            <h2 class="display-4">Select Your Meals and Locations.</h2>
+            </div>
+          </div>
+          <!-- Select Dietary Restrictions -->
+        <div class="carousel-item" style="background-color: #FFD3B5;">
+            <div class="carousel-caption d-none d-md-block">
+                <div class="allergies_input">
+                    <div style="padding-left:35%;padding-right:35%;padding-bottom:8%;">
+                        <label class="switch"><input type="checkbox" value="Milk" name="allergies" {% if "Milk" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Milk</span><span class="off">Milk</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Eggs" name="allergies" {% if "Eggs" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Eggs</span><span class="off">Eggs</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Fish" name="allergies" {% if "Shellfish" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Fish</span><span class="off">Fish</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Shellfish" name="allergies" {% if "Shellfish" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Shellfish</span><span class="off">Shellfish</span></div></label>
+                        <label class="switch"><input type="checkbox" value="TreeNuts" name="allergies" {% if "TreeNuts" in a_list%}checked{% endif %}><div class="slider round"><span class="on">TreeNuts</span><span class="off">TreeNuts</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Peanuts" name="allergies" {% if "Peanuts" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Peanuts</span><span class="off">Peanuts</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Wheat" name="allergies" {% if "Wheat" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Wheat</span><span class="off">Wheat</span></div></label>
+                        <label class="switch"><input type="checkbox" value="Soybeans" name="allergies" {% if "Soybeans" in a_list%}checked{% endif %}><div class="slider round"><span class="on">Soybeans</span><span class="off">Soybeans</span></div></label>
+                        <label class="switch"><input type="checkbox" value="*" name="vegetarian" {% if vegetarian == "*" %}checked{% endif %}><div class="slider round"><span class="on">Vegetarian</span><span class="off">Vegetarian</span></div></label>
+                        <label class="switch"><input type="checkbox" value="**" name="vegan" {% if vegan == "**" %}checked{% endif %}><div class="slider round"><span class="on">Vegan</span><span class="off">Vegan</span></div></label>
+                    </div>
+                </div>
+
+              <h2 class="display-4">Select Dietary Restrictions*.</h2>
+              <p class="lead">Green selections means those foods groups will not be used in the optimization.</p>
+              <p class="lead">*Nutricient's information is only as acurrate as VT Dining.</p>
+            </div>
+          </div>
+          <!-- Select Micronutrients -->
+        <div class="carousel-item" style="background-color: #FFAAA6;">
+            <div class="carousel-caption d-none d-md-block">
+              <!-- Macro input  -->
+			<div>
+				<table style="position: center;align: center;display: inline-flex;padding-bottom:15%;">
+					<tr  style="padding-right: 15px;">
+						<th><h4>Nutrient Targets</h4></th>
+						<th><h4>Vitamin Targets</h4></th>
+					</tr>
+					<tr  style="padding-right: 15px;">
+						<td style="text-align:left;padding-right: 25px;">
+							<div>
+								<label for="sugarInputId">Sugars(g): </label>
+							  <input type="range" name="sugarInputName" id="sugarInputId" value="{{sugar_val}}" min="0" max="100" oninput="sugarOutputId.value = sugarInputId.value" step="5">
+								<output name="sugarOutputName" id="sugarOutputId">{{sugar_val}}</output>
+							</div>
+							<div>
+								<label for="fiberInputId">Dietary Fiber(g): </label>
+						  	<input type="range" name="fiberInputName" id="fiberInputId" value="{{fiber_val}}" min="0" max="100" oninput="fiberOutputId.value = fiberInputId.value" step="5">
+								<output name="fiberOutputName" id="fiberOutputId">{{fiber_val}}</output>
+							</div>
+							<div>
+								<label for="cholesterolInputId">Cholesterol(mg): </label>
+						  	<input type="range" name="cholesterolInputName" id="cholesterolInputId" value="{{cholesterol_val}}" min="0" max="500" oninput="cholesterolOutputId.value = cholesterolInputId.value" step="5">
+								<output name="cholesterolOutputName" id="cholesterolOutputId">{{cholesterol_val}}</output>
+							</div>
+						</td>
+						<td style="text-align:left;padding-left: 25px;">
+							<div>
+								<label for="ironInputId">Iron(%DV)): </label>
+							  <input type="range" name="ironInputName" id="ironInputId" value="{{iron_val}}" min="0" max="300" oninput="ironOutputId.value = ironInputId.value" step="5">
+								<output name="ironOutputName" id="ironOutputId">{{iron_val}}</output>
+							</div>
+							<div>
+								<label for="calciumInputId">Calcium(%DV): </label>
+						  	<input type="range" name="calciumInputName" id="calciumInputId" value="{{calcium_val}}" min="0" max="300" oninput="calciumOutputId.value = calciumInputId.value" step="5">
+								<output name="calciumOutputName" id="calciumOutputId">{{calcium_val}}</output>
+							</div>
+							<div>
+								<label for="vitaInputId">Vitamin A(%DV): </label>
+						  	<input type="range" name="vitaInputName" id="vitaInputId" value="{{vita_val}}" min="0" max="300" oninput="vitaOutputId.value = vitaInputId.value" step="5">
+								<output name="vitaOutputName" id="vitaOutputId">{{vita_val}}</output>
+							</div>
+							<div>
+								<label for="vitcInputId">Vitamin C(%DV): </label>
+						  	<input type="range" name="vitcInputName" id="vitcInputId" value="{{vitc_val}}" min="0" max="300" oninput="vitcOutputId.value = vitcInputId.value" step="5">
+								<output name="vitcOutputName" id="vitcOutputId">{{vitc_val}}</output>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+              <h2 class="display-4">Select Micronutrient and Vitamin Targets.</h2>
+            </div>
+          </div>
+        </div>
+           <!-- Optimization Results -->
+        <div class="carousel-item" style="background-color: #FF8C94;" id='optimization_results'>
+            <div class="carousel-caption d-none d-md-block">
+                {% if display_results %}
+                <div class="output">
+                    <div>
+                        <h3>This diet minimizes calories and optimizes for {{max_carbs}}g carbs, {{max_protein}}g protein, and {{max_fat}}g fat.</h3>
+                        {% if a_list[0] %}
+                            <h5>This diet does not contain: {{a_list|join(", ")}}</h5>
+                        {% endif %}
+                        <table class="output_table">
+                            <tr>
+                                {% if breakfast != 'None' %}
+                                    <th class="output_header" style='text-decoration: underline;'>Breakfast at {{breakfast}}</th>
+                                {% endif %}
+                                {% if lunch != 'None' %}
+                                    <th class="output_header" style='text-decoration: underline;'>Lunch at {{lunch}}</th>
+                                {% endif %}
+                                {% if dinner != 'None' %}
+                                    <th class="output_header" style='text-decoration: underline;'>Dinner at {{dinner}}</th>
+                                {% endif %}
+                                    <th class="output_header">Nutrient Information</th>
+                            </tr>
+                            <tr style='vertical-align:top;'>
+                                {% if breakfast != 'None' %}
+                                    <td class="brek_serving_list">
+                                        <ul id="brek_selectedfood" style="list-style: none;text-align:left;">
+                                            {% for brek_starting_food in brek_starting_foods %}
+                                                <li class="food_list output"><input name="brek_foods" value="{{brek_starting_food}}" style="display:none;">{{brek_starting_food}}</input></li>
+                                            {% endfor %}
+                                            {% if brek_status %}
+                                                {% for brek_food in brek_foods %}
+                                                    <li class="food_list output"><input name="brek_foods" value="{{brek_food}}" style="display:none;">{{brek_food}}</input></li>
+                                                {% endfor %}
+                                            {% else %}
+                                                <h3 class="text-danger">This diet is not possible with these selections</h3>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                                {% if lunch != 'None'%}
+                                    <td class="serving_list">
+                                        <ul id="lunch_selectedfood" style="list-style: none;text-align:left;">
+                                            {% for lunch_starting_food in lunch_starting_foods %}
+                                                <li class="food_list output"><input name="foods" value="{{lunch_starting_food}}" style="display:none;">{{lunch_starting_food}}</input></li>
+                                            {% endfor %}
+                                            {% if lunch_status %}
+                                                {% for lunch_food in lunch_foods %}
+                                                    <li class="food_list output"><input name="lunch_foods" value="{{lunch_food}}" style="display:none;">{{lunch_food}}</input></li>
+                                                {% endfor %}
+                                            {% else %}
+                                                <h3 class="text-danger">This diet is not possible with these selections</h3>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                                {% if dinner != 'None'%}
+                                    <td class="serving_list">
+                                        <ul id="dinner_selectedfood" style="list-style: none;text-align:left;">
+                                            {% for dinner_starting_food in dinner_starting_foods %}
+                                                <li class="food_list output"><input name="dinner_foods" value="{{dinner_starting_food}}" style="display:none;">{{dinner_starting_food}}</input></li>
+                                            {% endfor %}
+                                            {% if dinner_status %}
+                                                {% for dinner_food in dinner_foods %}
+                                                    <li class="food_list output"><input name="dinner_foods" value="{{dinner_food}}" style="display:none;">{{dinner_food}}</input></li>
+                                                {% endfor %}
+                                            {% else %}
+                                                <h3 class="text-danger">This diet is not possible with these selections</h3>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                                <td class="nutrition_list">
+                                    <ul style="list-style: none;text-align:left;">
+                                        {% for info in nutrient_info %}
+                                            <li style="white-space: nowrap;">{{info}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                    {% if display_loc_error %}
+                        <p>Please select at least one location to run an optimization.</p>
+                    {% endif %}
+                {% endif %}
+                <div style="padding-bottom:1%;">
+                    {{form_optimize.optimize(class_='btn btn-secondary btn-lg', href='#optimization_results')}}
+                </div>
+                <p>*vegetarian **vegan</p>
+            </div>
+          </div>
+      </div>
+      </form>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" data-interval="false">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" data-interval="false">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+    </div>
+  </header>
+  
+  <!-- Page Content -->
+  <section class="py-5" id="sub_info">
+    <div class="container">
+      <h1 class="display-4">What is Nutricient?</h1>
+      <p class="lead">Nutricient is designed as an optimization tool to create the perfect daily diet from foods at Virginia Tech dining halls.</p>
+      <p class="6">With Nutricient, you have complete control over creating your ideal diet here at Virginia Tech. Select where you want to eat,
+          add any dietary restrictions, and set your daily targets for macro and micronutrients. Nutricient will pull from daily updated VT dining menus
+          and give you an optimized meal plan for the day. Don't like what it selected? Simply remove items you don't wish to eat and rerun the optimization.
+          Want to diet but want that slice of cake more? Manually enter in foods you've already eaten and the algorithmn will work around your taste buds.</p>
+    </div>
+  </section>
+  {% endblock %}
